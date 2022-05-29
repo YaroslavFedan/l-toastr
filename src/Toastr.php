@@ -2,6 +2,7 @@
 
 namespace Dongrim\Toastr;
 
+use Carbon\Carbon;
 use Illuminate\Session\SessionManager as Session;
 use Illuminate\Config\Repository as Config;
 
@@ -98,6 +99,7 @@ class Toastr
     private function add($type, $message, $title, $options)
     {
         $this->messages[] = [
+            'created_at' => Carbon::now()->timestamp,
             'type' => $type,
             'title' => $title,
             'message' => $message,
