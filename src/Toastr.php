@@ -29,11 +29,11 @@ class Toastr
     private $sessionName;
 
     /**
-     * The messages in session.
+     * The message in session.
      *
      * @var array
      */
-    private $messages = [];
+    private $message = [];
 
     function __construct(Session $session, Config $config)
     {
@@ -98,7 +98,7 @@ class Toastr
      */
     private function add($type, $message, $title, $options)
     {
-        $this->messages[] = [
+        $this->message = [
             'created_at' => Carbon::now()->timestamp,
             'type' => $type,
             'title' => $title,
@@ -106,13 +106,15 @@ class Toastr
             'options' => $options
         ];
 
-        $this->session->flash($this->sessionName, $this->messages);
+        $this->session->flash($this->sessionName, $this->message);
     }
 
-    public function messages()
+
+    public function get()
     {
-        return $this->messages;
+        return $this->session->get($this->sessionName, null);
     }
+
 
     public function render()
     {
